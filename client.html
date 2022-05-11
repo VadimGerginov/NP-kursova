@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebSocket Playground</title>
+</head>
+<body>
+
+</body>
+
+  <input type="text" placeholder="your message" id="text">
+
+  <button>Send</button>
+
+  <div id="log"></div>
+
+<script>
+
+  let log = document.querySelector('#log')
+
+  document.querySelector('button').onclick = function () {
+    let text = document.querySelector('#text').value
+    socket.send(text)
+  }
+  
+  // Create WebSocket connection.
+  const socket = new WebSocket('ws://localhost:8080');
+
+  socket.onmessage = function (event) {
+    log.innerHTML += event.data+"<br>"
+  }
+
+  // Listen for messages
+  socket.addEventListener('message', function (event) {
+      console.log('Message from server ', event.data);
+  });
+
+</script>
+</html>
